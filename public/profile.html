@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پروفایل کاربر</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>پروفایل شما</h2>
+    <p id="userEmail">در حال دریافت اطلاعات...</p>
+
+    <button onclick="logout()">خروج از حساب</button>
+
+    <script src="script.js"></script>
+    <script>
+        function getProfile() {
+            const token = localStorage.getItem("token");
+
+            if (!token) {
+                alert("لطفاً ابتدا وارد شوید!");
+                window.location.href = "index.html"; // برگشت به صفحه ورود
+                return;
+            }
+
+            fetch(`${API_URL}/profile`, {
+                method: "GET",
+                headers: { "Authorization": `Bearer ${token}` }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.user) {
+                    document.getElementById("userEmail").innerText = `ایمیل شما: ${data.user.email}`;
+                } else {
+                    alert(data.message);
+                    window.location.href = "index.html";
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+        getProfile(); // هنگام لود شدن صفحه، اطلاعات پروفایل را دریافت کند.
+    </script>
+</body>
+</html>
