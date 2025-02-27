@@ -23,12 +23,12 @@ app.use("/api/auth", authRoutes);         ``
 
 //  مسیر پیش‌فرض
 app.get("/", (req, res) => {
-  res.send("🚀 Server is running...");
+  res.send(" Server is running...");
 });
 
 //  راه‌اندازی سرور
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(` Server running on port ${PORT}`);
 });
 // فرانت اند
 app.use(express.static("public"));
